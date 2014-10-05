@@ -34,7 +34,7 @@ This is how you start listening for WebSocket connections:
 
     ServerSocket serverSocket = new ServerSocket(PORT);
     WebSocketServerSocket webSocketServerSocket = new WebSocketServerSocket(serverSocket);
-    WebSocket socket = webSocketServerSocket.accept();
+    WebSocket webSocket = webSocketServerSocket.accept();
 
 And this is how you read data from the connecting client:
 
@@ -43,7 +43,7 @@ And this is how you read data from the connecting client:
 
 And this is how you communicate back to the connecting client:
 
-    WebSocketServerOutputStream os = socket.getOutputStream();
+    WebSocketServerOutputStream os = webSocket.getOutputStream();
     os.writeString("This is a UTF-8 string.");
     os.writeBinary("Some binary data.".getBytes());
 
@@ -59,7 +59,7 @@ can test the WebSocket implementation.
 
 Then point your browser to the following URL:
 
-    [http://www.websocket.org/echo.html](http://www.websocket.org/echo.html)
+    (http://www.websocket.org/echo.html)[http://www.websocket.org/echo.html]
 
 Change the server to:
 
@@ -97,6 +97,10 @@ between server and client, this component will meet your requirements.
 If you need to get into the guts of the WebSocket protocol, you'll
 need to modify the component.
 
+### No channels
+Unlike a regular Socket or ServerSocket, you cannot call getChannel().
+Attempting to do so will throw a UnsupportedOperationException.
+
 ## Development ideas
 These are some ideas that I might work on in the future.
 
@@ -104,6 +108,9 @@ These are some ideas that I might work on in the future.
   server that speaks WebSocket.
 
 * Use Guava's EventBus to create an evented I/O object that speaks WebSocket.
+
+* Create a WebSocketChannel to provide WebSocket protocol support for NIO
+  channels.
 
 ## License
 This program is free software: you can redistribute it and/or modify
