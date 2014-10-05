@@ -59,7 +59,7 @@ can test the WebSocket implementation.
 
 Then point your browser to the following URL:
 
-    (http://www.websocket.org/echo.html)[http://www.websocket.org/echo.html]
+* [http://www.websocket.org/echo.html](http://www.websocket.org/echo.html)
 
 Change the server to:
 
