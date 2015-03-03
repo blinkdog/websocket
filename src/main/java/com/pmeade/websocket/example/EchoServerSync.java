@@ -4,6 +4,7 @@ import com.pmeade.websocket.io.WebSocketServerOutputStream;
 import com.pmeade.websocket.net.WebSocket;
 import com.pmeade.websocket.net.WebSocketServerSocket;
 import com.pmeade.websocket.example.WebSocketConsumerThread;
+import com.pmeade.websocket.example.StringMessageQueue;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -109,26 +110,6 @@ class WebSocketThread extends Thread {
     private final WebSocket webSocket;
     private StringMessageQueue messageQueue;
     private ByteAccumulator buffer;
-}
-
-/**
- * message queue
- * keeps received messages
- */
-class StringMessageQueue {
-  private Queue<String> q = new LinkedList<String>();
-  synchronized String pop() throws InterruptedException {
-    while(q.isEmpty()) {
-      wait();
-    }
-    String value = q.remove();
-    notifyAll();
-    return value;
-  }
-  synchronized void push(String message) throws InterruptedException {
-    q.add(message);
-    notifyAll();
-  }
 }
 
 /**
