@@ -5,6 +5,7 @@ import com.pmeade.websocket.net.WebSocket;
 import com.pmeade.websocket.net.WebSocketServerSocket;
 import com.pmeade.websocket.example.WebSocketConsumerThread;
 import com.pmeade.websocket.example.StringMessageQueue;
+import com.pmeade.websocket.example.ByteAccumulator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -110,26 +111,4 @@ class WebSocketThread extends Thread {
     private final WebSocket webSocket;
     private StringMessageQueue messageQueue;
     private ByteAccumulator buffer;
-}
-
-/**
- * byte accumulator
- * accumulates bytes received from clients
- */
-class ByteAccumulator {
-  LinkedList<Byte> buffer = new LinkedList<Byte>();
-  public void add(byte thing) {
-    buffer.add(thing);
-  }
-  public void toNativeArray(byte[] buff) {
-    for(int i = 0; i < buffer.size(); i++) {
-      buff[i] = buffer.get(i);
-    }
-  }
-  public int size() {
-    return buffer.size();
-  }
-  public void clear() {
-    buffer.clear();
-  }
 }
