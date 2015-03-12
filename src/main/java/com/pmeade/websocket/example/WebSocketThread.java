@@ -21,10 +21,9 @@ import java.util.Arrays;
  * accepts content from web sockets and places them in the queue
  */
 public class WebSocketThread extends Thread {
-    public WebSocketThread(WebSocket socket, StringMessageQueue messageQueue, ByteAccumulator buffer) {
+    public WebSocketThread(WebSocket socket, StringMessageQueue messageQueue) {
         this.webSocket = socket;
         this.messageQueue = messageQueue;
-        this.buffer = buffer;
     }
     
     @Override
@@ -63,5 +62,4 @@ public class WebSocketThread extends Thread {
     
     private final WebSocket webSocket;
     private StringMessageQueue messageQueue;
-    private ByteAccumulator buffer;
 }

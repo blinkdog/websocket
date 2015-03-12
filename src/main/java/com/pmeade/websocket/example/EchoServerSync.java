@@ -5,7 +5,6 @@ import com.pmeade.websocket.net.WebSocket;
 import com.pmeade.websocket.net.WebSocketServerSocket;
 import com.pmeade.websocket.example.WebSocketConsumerThread;
 import com.pmeade.websocket.example.StringMessageQueue;
-import com.pmeade.websocket.example.ByteAccumulator;
 import com.pmeade.websocket.example.WebSocketThread;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,12 +38,11 @@ public class EchoServerSync {
                 = new WebSocketServerSocket(serverSocket);
         StringMessageQueue messageQueue = new StringMessageQueue();
         LinkedList<WebSocket> connections = new LinkedList<WebSocket>();
-        ByteAccumulator buffer = new ByteAccumulator();
         new WebSocketConsumerThread(messageQueue, connections).start();
         while(finished == false) {
             WebSocket socket = webSocketServerSocket.accept();
             connections.add(socket);
-            new WebSocketThread(socket, messageQueue, buffer).start();
+            new WebSocketThread(socket, messageQueue).start();
         }
     }
     
