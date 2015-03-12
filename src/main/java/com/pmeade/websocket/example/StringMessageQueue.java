@@ -7,7 +7,7 @@ import java.util.Queue;
  * message queue
  * keeps received messages
  */
-class StringMessageQueue {
+public class StringMessageQueue {
   private Queue<String> q = new LinkedList<String>();
   synchronized String pop() throws InterruptedException {
     while(q.isEmpty()) {

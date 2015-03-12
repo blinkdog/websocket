@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #----------------------------------------------------------------------------
 
-java -cp "target/classes:target/dependency/*" com.pmeade.websocket.example.EchoServerSync
+java -cp "$HOME/java_apps/websocket/target/classes:$HOME/java_apps/websocket/target/dependency/*" com.pmeade.websocket.example.EchoServerSync
 
 #----------------------------------------------------------------------------
 # end of start-echo-server

@@ -5,7 +5,7 @@ import java.util.LinkedList;
  * byte accumulator
  * accumulates bytes received from clients
  */
-class ByteAccumulator {
+public class ByteAccumulator {
   LinkedList<Byte> buffer = new LinkedList<Byte>();
   public void add(byte thing) {
     buffer.add(thing);
