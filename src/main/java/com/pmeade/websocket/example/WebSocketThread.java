@@ -6,6 +6,7 @@ import com.pmeade.websocket.net.WebSocketServerSocket;
 import com.pmeade.websocket.example.WebSocketConsumerThread;
 import com.pmeade.websocket.example.StringMessageQueue;
 import com.pmeade.websocket.example.ByteAccumulator;
+import com.pmeade.websocket.io.LineInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -30,20 +31,11 @@ public class WebSocketThread extends Thread {
     public void run() {
         try {
             InputStream wsis = webSocket.getInputStream();
-            byte[] bufferContent;
-            int data = wsis.read();
-            while (finished == false && data != -1) {
-                if(data == 10) {
-                  buffer.add((byte)0);
-                  bufferContent = new byte[buffer.size()];
-                  buffer.toNativeArray(bufferContent);
-                  messageQueue.push(new String(bufferContent));
-                  buffer.clear();
-                  bufferContent = null;
-                } else {
-                  buffer.add((byte)data);
-                }
-                data = wsis.read();
+            LineInputStream line = new LineInputStream(wsis);
+            String lineStr = "";
+            while (finished == false) {
+              lineStr = line.readLine();
+              messageQueue.push(lineStr);
             }
         } catch (IOException e) {
             finished = true;
