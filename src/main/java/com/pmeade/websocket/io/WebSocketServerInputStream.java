@@ -467,8 +467,8 @@ public class WebSocketServerInputStream extends InputStream {
         handshakeComplete = checkStartsWith(requestLine, "GET /")
             && checkContains(requestLine, "HTTP/")
             && req.get("Host") != null
-            && checkContains(req.get("Upgrade"), "websocket")
-            && checkContains(req.get("Connection"), "Upgrade")
+            && checkContains(req.get("Upgrade").toLowerCase(), "websocket")
+            && checkContains(req.get("Connection").toLowerCase(), "Upgrade")
             && "13".equals(req.get("Sec-WebSocket-Version"))
             && req.get("Sec-WebSocket-Key") != null;
         String nonce = req.get("Sec-WebSocket-Key");
