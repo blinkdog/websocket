@@ -229,6 +229,20 @@ public class WebSocketServerInputStream extends InputStream {
         }
         return s1.contains(s2);
     }
+    
+        /**
+     * Check if the first String contains() the second String and ignore case. This method
+     * returns false if the first string is null.
+     * @param s1 String to be checked if it contains
+     * @param s2 String to check for
+     * @return true, iff s1.contains(s2), otherwise false
+     */
+    public static boolean checkContainsIgnoreCase(final String s1, final String s2) {
+        if (s1 == null) {
+            return false;
+        }
+        return s1.toLowerCase().contains(s2.toLowerCase());
+    }
 
     /**
      * Check if the first String startsWith() the second String. This method
@@ -467,8 +481,8 @@ public class WebSocketServerInputStream extends InputStream {
         handshakeComplete = checkStartsWith(requestLine, "GET /")
             && checkContains(requestLine, "HTTP/")
             && req.get("Host") != null
-            && checkContains(req.get("Upgrade").toLowerCase(), "websocket")
-            && checkContains(req.get("Connection").toLowerCase(), "Upgrade")
+            && checkContainsIgnoreCase(req.get("Upgrade"), "websocket")
+            && checkContainsIgnoreCase(req.get("Connection"), "Upgrade")
             && "13".equals(req.get("Sec-WebSocket-Version"))
             && req.get("Sec-WebSocket-Key") != null;
         String nonce = req.get("Sec-WebSocket-Key");
